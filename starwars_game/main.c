@@ -1,12 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <windows.h>
 
 #define SIZE 10
 
 const int width = 20;
 const int height = 15;
-int x = 10, y = 14, score;
+int score;
+
+struct Spaceships
+{
+    int x, y;
+} spaceship;
+
+struct Enemies
+{
+    int x, y;
+} enemy1, enemy2;
+
+struct Bullets
+{
+ int x, y;
+} bullet;
 
 enum eDirection { STOP, LEFT, RIGHT, SHOT } dir;
 int gameOver;
@@ -33,11 +49,20 @@ int main(void)
 void Setup()
 {
     gameOver = 0;
+    spaceship.y = 14;
+    spaceship.x = 10;
+
+    enemy1.x = rand() % width;
+    enemy1.y = -(rand() % height);
+    enemy2.x = rand() % width;
+    enemy2.y = -(rand() % height);
+
 }
 
 void Bullet()
 {
-
+    bullet.x = spaceship.x;
+    bullet.y = (spaceship.y - 1);
 }
 
 void Draw()
@@ -53,13 +78,18 @@ void Draw()
         {
             if(j == 0 || j == (width - 1))
                 printf("#");
-            else if(i == y && j == x)
+            else if(i == enemy1.y && j == enemy1.x)
+                printf("o");
+            else if(i == enemy2.y && j == enemy2.x)
+                printf("o");
+            else if(i == bullet.y && j == bullet.x)
+                printf("*");
+            else if(i == spaceship.y && j == spaceship.x)
             {
                 printf("_");
             }
             else
                 printf(" ");
-
         }
         printf("\n");
     }
@@ -82,6 +112,9 @@ void Input()
             case 'd':
                 dir = RIGHT;
                 break;
+            case 's':
+                dir = SHOT;
+                break;
             case 'x':
                 gameOver = 1;
                 break;
@@ -96,24 +129,33 @@ void Logic()
     switch(dir)
     {
         case LEFT:
-            x--;
+            spaceship.x--;
             dir = STOP;
             break;
         case RIGHT:
-            x++;
+            spaceship.x++;
             dir = STOP;
+            break;
+        case SHOT:
+            Bullet();
+            dir = STOP;
+            break;
+        case STOP:
+            enemy1.y++;
+            enemy2.y++;
             break;
         default:
             break;
     }
 
-    if(x <= 0)
+
+    if(spaceship.x <= 0)
     {
-        x = 1;
+        spaceship.x = 1;
     }
-    if(x >= (width - 1))
+    if(spaceship.x >= (width - 1))
     {
-        x = (width - 2);
+        spaceship.x = (width - 2);
     }
 
 }
