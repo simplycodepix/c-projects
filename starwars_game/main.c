@@ -12,16 +12,19 @@ int score;
 struct Spaceships
 {
     int x, y;
+    char look;
 } spaceship;
 
 struct Enemies
 {
     int x, y;
+    char look;
 } enemy1, enemy2;
 
 struct Bullets
 {
  int x, y;
+ char look;
 } bullet;
 
 enum eDirection { STOP, LEFT, RIGHT, SHOT } dir;
@@ -51,19 +54,19 @@ void Setup()
     gameOver = 0;
     spaceship.y = 14;
     spaceship.x = 10;
+    spaceship.look = '_';
 
-    enemy1.x = rand() % width;
-    enemy1.y = -(rand() % height);
-    enemy2.x = rand() % width;
-    enemy2.y = -(rand() % height);
+    bullet.x = spaceship.x;
+    bullet.y = (spaceship.y - 1);
+    bullet.look = '*';
+
+    enemy1.look = enemy2.look = 'o';
 }
 
 void Bullet()
 {
     bullet.x = spaceship.x;
     bullet.y = (spaceship.y - 1);
-    //for(int i = 0; i < height; i++)
-      //  bullet.y--;
 }
 
 void Draw()
@@ -79,13 +82,11 @@ void Draw()
         {
             if(j == 0 || j == (width - 1))
                 printf("#");
-            else if(i == enemy1.y && j == enemy1.x)
-                printf("o");
             else if(i == bullet.y && j == bullet.x)
-                printf("*");
+                printf("%c", bullet.look);
             else if(i == spaceship.y && j == spaceship.x)
             {
-                printf("_");
+                printf("%c", spaceship.look);
             }
             else
                 printf(" ");

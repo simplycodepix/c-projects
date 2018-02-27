@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <Windows.h>
 
 #define ARR_SIZE 5
 
@@ -75,7 +76,6 @@ int countArithmeticAverage(int arr[], int size)
 
     if (counter == 0)
     {
-        printf("There is no negative numbers\n");
         return 0;
     } else
     {
