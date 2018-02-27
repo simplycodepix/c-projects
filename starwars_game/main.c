@@ -56,13 +56,14 @@ void Setup()
     enemy1.y = -(rand() % height);
     enemy2.x = rand() % width;
     enemy2.y = -(rand() % height);
-
 }
 
 void Bullet()
 {
     bullet.x = spaceship.x;
     bullet.y = (spaceship.y - 1);
+    //for(int i = 0; i < height; i++)
+      //  bullet.y--;
 }
 
 void Draw()
@@ -79,8 +80,6 @@ void Draw()
             if(j == 0 || j == (width - 1))
                 printf("#");
             else if(i == enemy1.y && j == enemy1.x)
-                printf("o");
-            else if(i == enemy2.y && j == enemy2.x)
                 printf("o");
             else if(i == bullet.y && j == bullet.x)
                 printf("*");
@@ -137,12 +136,9 @@ void Logic()
             dir = STOP;
             break;
         case SHOT:
-            Bullet();
-            dir = STOP;
+            bullet.y--;
             break;
         case STOP:
-            enemy1.y++;
-            enemy2.y++;
             break;
         default:
             break;
