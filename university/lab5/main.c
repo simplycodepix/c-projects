@@ -4,7 +4,7 @@
 
 #define ARR_SIZE 5
 
-void enterArray(int arr[], int size);
+void enterArray(int* arr, int size);
 void printArray(int arr[], int size);
 
 int countArithmeticAverage(int arr[], int size);
