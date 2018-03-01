@@ -4,50 +4,41 @@
 #define AMOUNT_OF_WORKERS 2
 #define CURRENT_YEAR 2018
 
-struct WORKER
+enum criteries { NAME, POSITION, YEAR, NAME_AND_POSITION, ALL_INFO, NUM_OF_FIELDS };
+
+struct WORKERS
 {
     char name[10];
     char position[20];
     int year;
 
-} person[AMOUNT_OF_WORKERS];
+} worker[AMOUNT_OF_WORKERS];
 
-void addWorker(char name[], char position[], int year);
-void printWorkerInfo(char name[], char position[], int year);
+void addWorker(struct WORKERS* worker);
+void printWorkerInfo(struct WORKERS* worker, int criteria);
 
 int main(void)
 {    
+    short int experience, found = 0;
 
     for( int i = 0; i < AMOUNT_OF_WORKERS; i++ )
     {
-        printf("\n***************Worker [%d] info***************\n", i + 1);
-
-        printf("Enter name: ");
-        fflush(stdin);
-        scanf("%s", &person[i].name);
-        
-        printf("Enter position: ");
-        fflush(stdin);
-        scanf("%s", &person[i].position);
-        
-        printf("Enter year: ");
-        fflush(stdin);
-        scanf("%d", &person[i].year);
+        printf("\nWorker [%d] info:\n", i + 1);
+        addWorker(&worker[i]);
     }
-
-    short int experience, found = 0;
-    printf("\nEnter Interesting Experience: ");
+    
+    printf("\nEnter Interesting you Experience: ");
     fflush(stdin);
     scanf("%d", &experience);
 
-    printf("\n\nList Of Workers that Match:\n");
+    printf("\nList Of Workers that Match:\n\n");
 
     for( int i = 0; i < AMOUNT_OF_WORKERS; i++ )
     {
-        if( ( CURRENT_YEAR - person[i].year ) > experience )
+        if( (CURRENT_YEAR - worker[i].year) > experience )
         {
-            printf("\n***************Worker [%d] info***************\n", i + 1);
-            printf("Name: %s\n", person[i].name);
+            printWorkerInfo(&worker[i], NAME_AND_POSITION);
+            printf("\n");
             found = 1;
         }
     }
@@ -60,32 +51,47 @@ int main(void)
     return 0;
 }
 
-void addWorker(char name[], char position[], int year)
+void addWorker(struct WORKERS*worker)
 {
     printf("Enter name: ");
     fflush(stdin);
-    scanf("%s", &name);
+    scanf("%s", &worker -> name);
     
     printf("Enter position: ");
     fflush(stdin);
-    scanf("%s", &position);
+    scanf("%s", &worker -> position);
     
     printf("Enter year: ");
     fflush(stdin);
-    scanf("%d", &year);
+    scanf("%d", &worker -> year);
 }
 
-/*
-switch
+void printWorkerInfo(struct WORKERS* worker, int criteria)
 {
-    case "name":
-        printf("name", name);
-    case "position":
-        printf("position", position);
-    case "year":
-        printf("position", year);
-        printf("Name: %s\n", person[i].name);
-        printf("Position: %s\n", person[i].position);
-        printf("Year: %d\n", person[i].year);
+
+    switch(criteria)
+    {
+        case NAME:
+            printf("Name: %s\n", worker -> name);
+            break;
+        case POSITION:
+            printf("Position: %s\n", worker -> position);
+            break;
+        case YEAR:
+            printf("Year: %d\n", worker -> year);
+            break;
+        case NAME_AND_POSITION:
+            printf("Name: %s\n", worker -> name);
+            printf("Position: %s\n", worker -> position);
+            break;
+        case ALL_INFO:
+            printf("Name: %s\n", worker -> name);
+            printf("Position: %s\n", worker -> position);
+            printf("Year: %d\n", worker -> year);
+            break;
+        default:
+            printf("Bad criteria\n");
+            break;
+    }    
+
 }
-*/
