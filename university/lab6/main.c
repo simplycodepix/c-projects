@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define AMOUNT_OF_WORKERS 2
+#define AMOUNT_OF_WORKERS 4
 #define CURRENT_YEAR 2018
 
 enum criteries { NAME, POSITION, YEAR, NAME_AND_POSITION, ALL_INFO, NUM_OF_FIELDS };
@@ -16,6 +16,7 @@ struct WORKERS
 
 void addWorker(struct WORKERS* worker);
 void printWorkerInfo(struct WORKERS* worker, int criteria);
+void sortWorkersList(struct WORKERS* worker, int amount);
 
 int main(void)
 {    
@@ -26,7 +27,7 @@ int main(void)
         printf("\nWorker [%d] info:\n", i + 1);
         addWorker(&worker[i]);
     }
-    
+
     printf("\nEnter Interesting you Experience: ");
     fflush(stdin);
     scanf("%d", &experience);
@@ -35,7 +36,7 @@ int main(void)
 
     for( int i = 0; i < AMOUNT_OF_WORKERS; i++ )
     {
-        if( (CURRENT_YEAR - worker[i].year) > experience )
+        if( (CURRENT_YEAR - worker[i].year) >= experience )
         {
             printWorkerInfo(&worker[i], NAME_AND_POSITION);
             printf("\n");
@@ -93,5 +94,24 @@ void printWorkerInfo(struct WORKERS* worker, int criteria)
             printf("Bad criteria\n");
             break;
     }    
+
+}
+
+void sortWorkersList(struct WORKERS* worker, int amount)
+{
+    char placeholder[10];
+
+    for(int i = 0; i < amount; i++)
+    {
+        for(int j = 0; j < amount; j++)
+        {
+            if(strcmp(worker[i].name, worker[j].name) > 0)
+            {
+                strcpy(placeholder, worker[i].name);
+                strcpy(worker[i].name, worker[j].name);
+                strcpy(worker[j].name, placeholder);
+            }
+        }    
+    }
 
 }
