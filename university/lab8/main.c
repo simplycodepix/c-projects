@@ -8,6 +8,15 @@ double calculateThatFormula(double *arrayOfNumbers, int size, double functionOne
 int main(void)
 {
 
+    FILE *p;
+    p = fopen("file.txt", "w");
+
+    if(p == NULL)
+    {
+        printf("Error!");   
+        exit(1);             
+    }
+
     double *arrayOfNumbers, result;
     int amountOfElements;
 
@@ -21,19 +30,26 @@ int main(void)
 
     // PRINTING THE RESULT
     result = calculateThatFormula(arrayOfNumbers, amountOfElements, sin, cos);
+    fprintf(p, "%lf", result);
     printf("\nYour Final Result = %lf \n", result);
 
     // PRINTING THE RESULT
     result = calculateThatFormula(arrayOfNumbers, amountOfElements, cos, sin);
+    fprintf(p, "%lf", result);
     printf("\nYour Final Result = %lf \n", result);
 
     // PRINTING THE RESULT
     result = calculateThatFormula(arrayOfNumbers, amountOfElements, sin, sin);
+    fprintf(p, "%lf", result);
     printf("\nYour Final Result = %lf \n", result);
 
     // PRINTING THE RESULT
     result = calculateThatFormula(arrayOfNumbers, amountOfElements, cos, cos);
+    fprintf(p, "%lf", result);
     printf("\nYour Final Result = %lf \n", result);
+
+    fclose(p);
+    
 
     return 0;
 }
