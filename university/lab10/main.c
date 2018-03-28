@@ -4,7 +4,7 @@
 #include <ctype.h>
 
 int calculateSomeStuffInString(char string[], int function(int));
-void deleteVowelsFromString(char *destination, char string[]);
+char deleteVowelsFromString(char *destination, char string[]);
 
 int main(void)
 {
@@ -53,25 +53,20 @@ int calculateSomeStuffInString(char string[], int function(int))
     return result;
 }
 
-void deleteVowelsFromString(char *destination, char string[])
+char deleteVowelsFromString(char *destination, char string[])
 {
     const char *arr_lett = "AaEeIiOoUuYy";
     int i, j, d = 0;
 
     for(int i = 0; i < strlen(string); ++i)
     {
-        if(arr_lett[j] != string[i])
+        for(j = 0; j < strlen(arr_lett); ++j)
         {
-            destination[d++] = string[i];
+            if(arr_lett[j] == string[i])
+            {
+                destination[d++] = string[i];
+            }
         }
     }
     destination[d] = 0;
-    printf("%s\n", destination);
-
-    // for(i = 0; i < strlen(string); ++i)
-    // {
-        // for(j = 0; j < strlen(arr_lett); ++j)
-            // arr_lett[j] == string[i] ? ++cnt : 0;
-    // }
-    // return cnt;
 }
