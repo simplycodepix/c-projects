@@ -3,8 +3,9 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-int calculateSomeStuffInString(char string[], int function(int));
+int calculateHowMuchInString(char string[], int function(int));
 char deleteVowelsFromString(char *destination, char string[]);
+int isVowelInString(char character);
 
 int main(void)
 {
@@ -22,11 +23,11 @@ int main(void)
     printf("Type something nice: ");
     gets(str);
 
-    int result = calculateSomeStuffInString(str, isupper);
+    int result = calculateHowMuchInString(str, isupper);
     printf("\nYour string is: %s\n", str);
     printf("Amount of Uppercase Leters in the String = %d \n", result);
 
-    result = calculateSomeStuffInString(str, isspace);
+    result = calculateHowMuchInString(str, isspace);
     printf("\nIf You Don't Remember Your string is: %s\n", str);
     printf("Amount of Spaces in the String = %d \n", result);
 
@@ -40,7 +41,7 @@ int main(void)
     return 0;
 }
 
-int calculateSomeStuffInString(char string[], int function(int))
+int calculateHowMuchInString(char string[], int function(int))
 {
     int result = 0;
     for(int i = 0; i < strlen(string); i++)
@@ -53,20 +54,30 @@ int calculateSomeStuffInString(char string[], int function(int))
     return result;
 }
 
-char deleteVowelsFromString(char *destination, char string[])
+int isVowelInString(char character)
 {
     const char *arr_lett = "AaEeIiOoUuYy";
-    int i, j, d = 0;
 
-    for(int i = 0; i < strlen(string); ++i)
+    for(int i = 0; i < strlen(arr_lett); i++)
     {
-        for(j = 0; j < strlen(arr_lett); ++j)
+        if(arr_lett[i] == character)
+            return 1;
+    }
+
+    return 0;
+}
+
+
+char deleteVowelsFromString(char *destination, char string[])
+{
+    int j = 0;
+
+    for(int i = 0; string[i] != '\0'; i++)
+    {
+        if(isVowelInString(string[i]) == 0)
         {
-            if(arr_lett[j] == string[i])
-            {
-                destination[d++] = string[i];
-            }
+            destination[j++] = string[i];
         }
     }
-    destination[d] = 0;
+    destination[j] = '\0';
 }
