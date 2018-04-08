@@ -4,6 +4,7 @@
 float fillArray(float* array, int size);
 float calculateAverage(float* array, int size);
 void printArray(float* array, int size);
+void findMaxElementAndItsPosition(float* array, int size, float* max, int* position);
 
 int main(void)
 {
@@ -24,7 +25,14 @@ int main(void)
     printArray(arrayOfNumbers, sizeOfArray);
 
     average = calculateAverage(arrayOfNumbers, sizeOfArray);
-    printf("Average = %4.2f", average);
+    printf("Average = %4.2f\n", average);
+
+    float maxElement;
+    int positionOfMaxElement;
+    findMaxElementAndItsPosition(arrayOfNumbers, sizeOfArray, &maxElement, &positionOfMaxElement);
+    
+    printf("Max number = %4.2f\n", maxElement);
+    printf("Max number position = %i\n", positionOfMaxElement);
     
     return 0;
 }
@@ -57,4 +65,19 @@ float calculateAverage(float* array, int size)
         sum += *array++;
     }
     return (sum / size);
+}
+
+void findMaxElementAndItsPosition(float* array, int size, float* max, int* position)
+{
+    *max = array[0];
+    *position = 0;
+
+    for(int i = 0; i < size; i++)
+    {
+        if(*max < array[i])
+        {
+            *max = array[i];
+            *position = i;
+        }
+    }
 }
