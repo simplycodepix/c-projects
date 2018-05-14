@@ -12,7 +12,7 @@ void isMatrixSymmetrical(float array[ARRAY_SIZE][ARRAY_SIZE], int size);
 int main(void)
 {
 
-    float *arrayOfNumbers, average, matrix[ARRAY_SIZE][ARRAY_SIZE] = {1, -2, 5, -2, 2, 4, 5, 4, 3};
+    float *arrayOfNumbers, average, matrix[ARRAY_SIZE][ARRAY_SIZE] = {2, -2, 5, -2, 5, 4, 5, 4, 3};
     // = {1, -2, 5, -2, 2, 4, 5, 4, 3}
     int sizeOfArray;
 
@@ -101,6 +101,9 @@ void isMatrixSymmetrical(float array[ARRAY_SIZE][ARRAY_SIZE], int size)
             if(array[i][j] == array[j][i])
                 counter++;
     
+    
     if(counter == (size * size))
         printf("Your Matrix is Symmetrical\n");
+    else 
+        printf("Your Matrix isn't Symmetrical\n");
 }

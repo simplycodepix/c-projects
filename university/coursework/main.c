@@ -15,7 +15,7 @@ struct DATASTRUCTURE
     int delta;
     
 
-} data[3]
+} data[3];
 
 int main(void)
 {
